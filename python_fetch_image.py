@@ -1,7 +1,5 @@
 # encoding : utf-8
 # for python3
-# http://peroon.hatenablog.com/entry/20090818/1250623107
-# http://joker004.blog.fc2.com/blog-entry-9823.html
 import urllib.request
 import os.path
 import pyquery as pq
