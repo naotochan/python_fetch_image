@@ -10,21 +10,16 @@ def download(url, folderName):
 		print (folderName + "フォルダを作成しました")
 		os.mkdir(folderName)
 	save_path = './'+folderName+'/'
-	src= urllib.request.urlopen(url)
-	html = src.read()
-	query = pq.PyQuery(html)
+	src= urllib.request.urlopen(url).read() # decodeしない
+	query = pq.PyQuery(src)
 	
-	results = []
 	for img_tag in query('img'):
-		if 'jpg' or 'png' in img_tag:
-			img_url = query(img_tag).attr('src')
-			results.append(img_url)
-			print (os.path.basename(img_url))
-			with open (save_path + os.path.basename(img_url), 'wb') as f:
-				raw = requests.get(img_url).content
-				f.write(raw)
-	
-	print (results[1])
+		img_url = query(img_tag).attr('src')
+		print (os.path.basename(img_url)) # 確認用でターミナルに保存ファイル名を出力
+		with open (save_path + os.path.basename(img_url), 'wb') as f:
+			raw = requests.get(img_url).content
+			f.write(raw)
+			
 if __name__ == '__main__':
 	print ("写真を取得したいサイトのURLを入力してください")
 	input_url = input('>>>  ')
